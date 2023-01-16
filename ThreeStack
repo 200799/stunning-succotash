@@ -1,0 +1,23 @@
+class ThreeStack:
+    def __init__(self):
+        self.array = [None, None, None]     # partie constructeur 
+        self.pointers = [-1, -1, -1]        # -1 c'est "null"
+
+    def push(self, stack_num, object):
+        if stack_num not in [0, 1, 2]:
+            raise ValueError("Invalid stack number")
+        if self.pointers[stack_num] == len(self.array) / 3 - 1:
+            raise ValueError("Stack is already full")
+        self.pointers[stack_num] += 1
+        array_index = stack_num * len(self.array) / 3 + self.pointers[stack_num]
+        self.array[array_index] = object
+    def pop(self, stack_num):
+        if stack_num not in [0, 1, 2]:
+            raise ValueError("Invalid stack number")
+        if self.pointers[stack_num] == -1:
+            raise ValueError("Stack is empty")
+        array_index = stack_num * len(self.array) / 3 + self.pointers[stack_num]
+        value = self.array[array_index]
+        self.array[array_index] = None
+        self.pointers[stack_num] -= 1
+        return value
